@@ -139,7 +139,7 @@ O **MongoDB Atlas** é utilizado para armazenar os dados da aplicação em um ba
 O protótipo da aplicação foi desenvolvido utilizando o **Figma**.
 
 🔗 **Link do protótipo:**
-[INSIRA AQUI O LINK DO FIGMA]
+(https://www.figma.com/design/oODXSyft8uwliPRclT5Tgl/Untitled?node-id=0-1&t=bqdiGemBUdffjA4d-1)
 
 ## 🚀 Como executar o projeto
 
