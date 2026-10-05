@@ -1,0 +1,667 @@
+openapi: 3.0.0
+
+info:
+  title: GPA API
+  description: API para gerenciamento de animais, adotantes e adoções do GPA
+  version: 1.0.0
+
+paths:
+
+  # =========================================================
+  # ANIMAIS
+  # =========================================================
+
+  /animais:
+    get:
+      summary: Lista todos os animais
+      tags:
+        - Animais
+      responses:
+        '200':
+          description: Lista de animais
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  animals:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Animal'
+
+        '500':
+          description: Erro interno do servidor
+
+
+  /animal:
+    post:
+      summary: Cadastra um novo animal
+      tags:
+        - Animais
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimalInput'
+
+      responses:
+        '201':
+          description: Animal cadastrado com sucesso
+
+        '500':
+          description: Erro interno do servidor
+
+
+  /animal/{id}:
+    get:
+      summary: Busca um animal pelo ID
+      tags:
+        - Animais
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do animal
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      responses:
+        '200':
+          description: Animal encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  animal:
+                    $ref: '#/components/schemas/Animal'
+
+        '400':
+          description: ID inválido
+
+        '404':
+          description: Animal não encontrado
+
+        '500':
+          description: Erro interno do servidor
+
+
+    put:
+      summary: Atualiza um animal
+      tags:
+        - Animais
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do animal
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnimalInput'
+
+      responses:
+        '200':
+          description: Animal atualizado com sucesso
+
+        '400':
+          description: ID inválido
+
+        '500':
+          description: Erro interno do servidor
+
+
+    delete:
+      summary: Exclui um animal
+      tags:
+        - Animais
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do animal
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      responses:
+        '204':
+          description: Animal excluído com sucesso
+
+        '400':
+          description: ID inválido
+
+        '500':
+          description: Erro interno do servidor
+
+
+  # =========================================================
+  # ADOTANTES
+  # =========================================================
+
+  /adotantes:
+    get:
+      summary: Lista todos os adotantes
+      tags:
+        - Adotantes
+      responses:
+        '200':
+          description: Lista de adotantes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  adotantes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Adotante'
+
+        '500':
+          description: Erro interno do servidor
+
+
+  /adotante:
+    post:
+      summary: Cadastra um novo adotante
+      tags:
+        - Adotantes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdotanteInput'
+
+      responses:
+        '201':
+          description: Adotante cadastrado com sucesso
+
+        '500':
+          description: Erro interno do servidor
+
+
+  /adotante/{id}:
+    get:
+      summary: Busca um adotante pelo ID
+      tags:
+        - Adotantes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do adotante
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      responses:
+        '200':
+          description: Adotante encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  adotante:
+                    $ref: '#/components/schemas/Adotante'
+
+        '400':
+          description: ID inválido
+
+        '404':
+          description: Adotante não encontrado
+
+        '500':
+          description: Erro interno do servidor
+
+
+    put:
+      summary: Atualiza um adotante
+      tags:
+        - Adotantes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do adotante
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdotanteInput'
+
+      responses:
+        '200':
+          description: Adotante atualizado com sucesso
+
+        '400':
+          description: ID inválido
+
+        '500':
+          description: Erro interno do servidor
+
+
+    delete:
+      summary: Exclui um adotante
+      tags:
+        - Adotantes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do adotante
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      responses:
+        '204':
+          description: Adotante excluído com sucesso
+
+        '400':
+          description: ID inválido
+
+        '500':
+          description: Erro interno do servidor
+
+
+  # =========================================================
+  # ADOÇÕES
+  # =========================================================
+
+  /adocoes:
+    get:
+      summary: Lista todas as adoções
+      tags:
+        - Adoções
+      responses:
+        '200':
+          description: Lista de adoções
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  adocoes:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Adocao'
+
+        '500':
+          description: Erro interno do servidor
+
+
+  /adocao:
+    post:
+      summary: Registra uma nova adoção
+      tags:
+        - Adoções
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdocaoInput'
+
+      responses:
+        '201':
+          description: Adoção cadastrada com sucesso
+
+        '500':
+          description: Erro interno do servidor
+
+
+  /adocao/{id}:
+    get:
+      summary: Busca uma adoção pelo ID
+      tags:
+        - Adoções
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da adoção
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      responses:
+        '200':
+          description: Adoção encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  adocao:
+                    $ref: '#/components/schemas/Adocao'
+
+        '400':
+          description: ID inválido
+
+        '404':
+          description: Adoção não encontrada
+
+        '500':
+          description: Erro interno do servidor
+
+
+    put:
+      summary: Atualiza uma adoção
+      tags:
+        - Adoções
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da adoção
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdocaoInput'
+
+      responses:
+        '200':
+          description: Adoção atualizada com sucesso
+
+        '400':
+          description: ID inválido
+
+        '500':
+          description: Erro interno do servidor
+
+
+    delete:
+      summary: Exclui uma adoção
+      tags:
+        - Adoções
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da adoção
+          schema:
+            type: string
+          example: 6ac2faaa496daff497967136
+
+      responses:
+        '204':
+          description: Adoção excluída com sucesso
+
+        '400':
+          description: ID inválido
+
+        '500':
+          description: Erro interno do servidor
+
+
+# =========================================================
+# MODELOS
+# =========================================================
+
+components:
+
+  schemas:
+
+    # -------------------------------------------------------
+    # ANIMAL
+    # -------------------------------------------------------
+
+    Caracteristicas:
+      type: object
+      properties:
+        porte:
+          type: string
+          example: Médio
+
+        cor:
+          type: string
+          example: Caramelo
+
+        castrado:
+          type: boolean
+          example: true
+
+        vacinado:
+          type: boolean
+          example: true
+
+
+    Animal:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 6ac2faaa496daff497967136
+
+        nome:
+          type: string
+          example: Canjica
+
+        especie:
+          type: string
+          example: Cachorro
+
+        sexo:
+          type: string
+          example: Fêmea
+
+        status:
+          type: string
+          example: Disponível
+
+        descricao:
+          type: string
+          example: Carinhosa e brincalhona
+
+        idade:
+          type: integer
+          example: 2
+
+        peso:
+          type: number
+          example: 10
+
+        raca:
+          type: string
+          example: Não identificada
+
+        caracteristicas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Caracteristicas'
+
+
+    AnimalInput:
+      type: object
+      required:
+        - nome
+        - especie
+        - sexo
+        - status
+        - descricao
+
+      properties:
+        nome:
+          type: string
+          example: Canjica
+
+        especie:
+          type: string
+          example: Cachorro
+
+        sexo:
+          type: string
+          example: Fêmea
+
+        status:
+          type: string
+          example: Disponível
+
+        descricao:
+          type: string
+          example: Carinhosa e brincalhona
+
+        idade:
+          type: integer
+          example: 2
+
+        peso:
+          type: number
+          example: 10
+
+        raca:
+          type: string
+          example: Não identificada
+
+        caracteristicas:
+          type: array
+          items:
+            $ref: '#/components/schemas/Caracteristicas'
+
+
+    # -------------------------------------------------------
+    # ADOTANTE
+    # -------------------------------------------------------
+
+    Endereco:
+      type: object
+      properties:
+        cidade:
+          type: string
+          example: Registro
+
+        estado:
+          type: string
+          example: SP
+
+
+    Adotante:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 6ac2faaa496daff497967136
+
+        nome:
+          type: string
+          example: Maria Silva
+
+        email:
+          type: string
+          example: maria@email.com
+
+        telefone:
+          type: string
+          example: 13999999999
+
+        endereco:
+          $ref: '#/components/schemas/Endereco'
+
+
+    AdotanteInput:
+      type: object
+      required:
+        - nome
+        - email
+        - telefone
+
+      properties:
+        nome:
+          type: string
+          example: Maria Silva
+
+        email:
+          type: string
+          example: maria@email.com
+
+        telefone:
+          type: string
+          example: 13999999999
+
+        endereco:
+          $ref: '#/components/schemas/Endereco'
+
+
+    # -------------------------------------------------------
+    # ADOÇÃO
+    # -------------------------------------------------------
+
+    Adocao:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 6ac2faaa496daff497967136
+
+        animalId:
+          type: string
+          example: 6ac2faaa496daff497967136
+
+        adotanteId:
+          type: string
+          example: 6ac2fad6496daff49796713a
+
+        data:
+          type: string
+          format: date
+          example: 2026-10-04
+
+        status:
+          type: string
+          example: Pendente
+
+        observacao:
+          type: string
+          example: Aguardando avaliação
+
+
+    AdocaoInput:
+      type: object
+      required:
+        - animalId
+        - adotanteId
+        - data
+        - status
+
+      properties:
+        animalId:
+          type: string
+          example: 6ac2faaa496daff497967136
+
+        adotanteId:
+          type: string
+          example: 6ac2fad6496daff49796713a
+
+        data:
+          type: string
+          format: date
+          example: 2026-10-04
+
+        status:
+          type: string
+          example: Pendente
+
+        observacao:
+          type: string
+          example: Aguardando avaliação
